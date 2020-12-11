@@ -22,13 +22,16 @@ class AppService
     }
     getCalculatedReturnsStr(MFData,  period , mfId ,dateStart ,dateEnd )
     {
-        var str = "<table>";
-        str+= "<th>Month</th><th>Returns</th><th>calculation</th>"
-        str+= "<tr>";
-        for(var i=0;i<2;i++)
-            str+= ("<td>row" + i + "</td>");
-        str+= "</tr>";
-        str+= "</table>";
+        var str = "";//"<table>";
+        str+= "<thead><tr><th>Month</th><th>Returns</th><th>calculation</th></tr></thead>"
+        for(var row = 0;row<5;row++)
+        {
+            str+= "<tbody><tr>";
+            for(var col=0;col<2;col++)
+                str+= ("<td>col" + col + "</td>");
+            str+= "</tr>";
+        }
+        str+= "</tbody>";
         return str;
     }
   

@@ -4,7 +4,8 @@
     var inputValidationError = getInputValidationError();
     if(inputValidationError!="")
     {
-        alert(inputValidationError);
+        strError = "<strong>Error! </strong>" +  inputValidationError;
+        document.getElementById('ErrorLabel').innerHTML = strError;
         return;
     }
     // var horizon = 1;
