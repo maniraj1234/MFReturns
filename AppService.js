@@ -20,5 +20,16 @@ class AppService
       var rhs = 1/years;
       return Math.round(100*(Math.pow(lhs, rhs)-1));
     }
+    getCalculatedReturnsStr(MFData,  period , mfId ,dateStart ,dateEnd )
+    {
+        var str = "<table>";
+        str+= "<th>Month</th><th>Returns</th><th>calculation</th>"
+        str+= "<tr>";
+        for(var i=0;i<2;i++)
+            str+= ("<td>row" + i + "</td>");
+        str+= "</tr>";
+        str+= "</table>";
+        return str;
+    }
   
 }
