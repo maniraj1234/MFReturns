@@ -8,7 +8,9 @@
   <script src="Formatter.js"></script>
 
 <h2>MF Returns Dashboard</h2>
-  <input type="number" id="folioID" value=102885>Folio number</input>
+  <label>Folio number: </label><input type="number" id="folioID"></input>
+  <label>From date: </label><input type="date" id="startDate"></input>
+  <label>To date: </label><input type="date" id="endDate"></input>
   <button type="button" onclick="onClickCalculateReturns()">Calculate Returns</button>
 <script>
   var appService = new AppService();
