@@ -8,9 +8,9 @@
   <script src="Formatter.js"></script>
 
 <h2>MF Returns Dashboard</h2>
-  <label>Folio number: </label><input type="number" id="folioID"></input>
-  <label>From date: </label><input type="date" id="startDate"></input>
-  <label>To date: </label><input type="date" id="endDate"></input>
+  <label>Folio number: </label><input type="number" id="folioID" value="102885" required></input>
+  <label>From date: </label><input type="date" id="startDate" required></input>
+  <label>To date: </label><input type="date" id="endDate" required></input>
   <button type="button" onclick="onClickCalculateReturns()">Calculate Returns</button>
 <script>
   var appService = new AppService();
@@ -20,8 +20,8 @@
     var horizon = 1;
     var period = 3;
     var mfId = document.getElementById('folioID').value;
-    dateStart = new Date("11-12-2019");
-    dateEnd = new Date("11-12-2020");
+    dateStart = new Date(document.getElementById('startDate').value);
+    dateEnd = new Date(document.getElementById('endDate').value);
     appService.getJSON('https://api.mfapi.in/mf/'+mfId, onMFDataLoaded);
   }
   onMFDataLoaded = function(err, data) {
