@@ -2,33 +2,43 @@
 <html lang="en">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <body>
-  <script src="AppService.js"></script>
+  <script src="AppService.js"></script>  
   <script src="DataService.js"></script>
   <script src="DataModel.js"></script>
   <script src="Formatter.js"></script>
-  <script src="StatisticsService.js"></script>
-<p {{schemeID}}></p>
-<div ng-app="MFReturns" ng-controller="formCtrl">
-  <form>
-    Scheme ID: <input type="text" ng-model="schemeID">
-  </form>
-</div>
+
+<h2>MF Returns Dashboard</h2>
+  <input type="number" id="folioID" value=102885>Folio number</input>
+  <button type="button" onclick="onClickCalculateReturns()">Calculate Returns</button>
 <script>
   var appService = new AppService();
-  appService.getJSON('https://api.mfapi.in/mf/102885',function(err, data) {
-  if (err !== null) {
-    alert('Something went wrong: ' + err);
-  } else {
-    console.log(JSON.stringify(data));
+  onClickCalculateReturns = function()
+  {
+    var MFData;
+    var horizon = 1;
+    var period = 3;
+    var mfId = document.getElementById('folioID').value;
+    dateStart = new Date("11-12-2019");
+    dateEnd = new Date("11-12-2020");
+    appService.getJSON('https://api.mfapi.in/mf/'+mfId, onMFDataLoaded);
   }
-});
+  onMFDataLoaded = function(err, data) {
+      if (err !== null) {
+        alert('Something went wrong: ' + err);
+      } else {
+        //console.log(JSON.stringify(data));
+        console.log(appService.getReturns(1000,2500,7));
+        MFData = appService.getMFDataMap(data.data);
+
+      }
+  }
 </script>
-<script>
+<!-- <script>
 var app = angular.module('MFReturns', []);
 app.controller('formCtrl', function($scope) {
     $scope.schemeID = "SchemeId";
 });
-</script>
+</script> -->
 
 </body>
 </html>

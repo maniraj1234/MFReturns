@@ -1,5 +1,9 @@
 class DataService
 {
+    constructor()
+    {
+
+    }
     getJSON = function(url, callback) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
@@ -14,4 +18,13 @@ class DataService
         };
         xhr.send();
     };
+    getMFDataMap = function(data)
+    {
+      var tempMFMap = {};
+      for(var entrySet of data)
+      {
+        tempMFMap[entrySet["date"]] = entrySet["nav"];
+      }
+      return tempMFMap;
+    }
 }
