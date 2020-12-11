@@ -19,6 +19,11 @@
       if (err !== null) {
         alert('Something went wrong: ' + err);
       } else {
+          if(data && data.data && data.data.length==0)
+          {
+            alert('No Data Found for this scheme id!');
+            return;
+          }
         //console.log(JSON.stringify(data));
         console.log(appService.getReturns(1000,2500,7));
         MFData = appService.getMFDataMap(data.data);
