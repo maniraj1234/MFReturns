@@ -56,6 +56,12 @@
     if(!formatter.isValidDate(dateEnd))
         errMessage = errMessage + "\n end date is Invalid";
 
+    if(formatter.compareDates(startDate,new Date().today()) == -1)
+        errMessage = errMessage + "\n Start date can't be in future";
+        
+    if(formatter.compareDates(endDate,new Date().today()) == -1)
+    errMessage = errMessage + "\n End date can't be in future";
+
     if(formatter.compareDates(dateStart,dateEnd)<=0)
         errMessage+= "start date should be less than end date";
     
