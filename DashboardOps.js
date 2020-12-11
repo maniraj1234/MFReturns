@@ -1,4 +1,5 @@
   var appService = new AppService();
+  var formatter = new Formatter();
   onClickCalculateReturns = function()
   {
     var inputValidationError = getInputValidationError();
@@ -43,14 +44,16 @@
         errMessage = errMessage + "\n Period number is Invalid";
         
     var dateStart = new Date(document.getElementById('startDate').value);
-    if(!isValidDate(dateStart))
+    if(!formatter.isValidDate(dateStart))
         errMessage = errMessage + "\n Start date is Invalid";
 
     var dateEnd = new Date(document.getElementById('endDate').value);
-    if(!isValidDate(dateEnd))
+    if(!formatter.isValidDate(dateEnd))
         errMessage = errMessage + "\n end date is Invalid";
+
+    if(formatter.compareDates(dateStart,dateEnd)<=0)
+        errMessage+= "start date should be less than end date";
+    
     return errMessage;
   }
-  function isValidDate(d) {
-    return d instanceof Date && !isNaN(d);
-  }
+ 

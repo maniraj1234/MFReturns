@@ -25,6 +25,8 @@ class DataService
       {
         tempMFMap[entrySet["date"]] = entrySet["nav"];
       }
+      tempMFMap["endDate"] = data[0]["date"];
+      tempMFMap["startDate"] = data[data.length-1]["date"];
       return tempMFMap;
     }
 }
