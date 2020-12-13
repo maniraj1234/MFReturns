@@ -27,14 +27,15 @@
           }
         // //console.log(JSON.stringify(data));
         // console.log(appService.getReturns(1000,2500,7));
-        MFData = appService.getMFDataMap(data.data);
+        this.appService.setMFData(data);
+        //MFData = appService.getMFDataMap(data.data);
         populateReturns();
       }
   }
   populateReturns = function()
   {
     //MFData,  period , mfId ,dateStart ,dateEnd 
-    var strReturns = appService.getCalculatedReturnsStr(MFData,  period , mfId ,dateStart ,dateEnd , years);
+    var strReturns = appService.getCalculatedReturnsStr(this.appService.getMFDataMap(),  period , mfId ,dateStart ,dateEnd , years);
     document.getElementById('resultstable').innerHTML = strReturns;
 
   }

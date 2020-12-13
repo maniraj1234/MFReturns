@@ -10,6 +10,10 @@ class AppService
     {
         return this.dataService.getJSON(url, callback);
     }
+    setMFData = function(data)
+    {
+        this.dataService.setMFData(data);
+    }
     getMFDataMap = function(data)
     {
         return  this.dataService.getMFDataMap(data);

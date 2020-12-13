@@ -2,7 +2,7 @@ class DataService
 {
     constructor()
     {
-
+      this.dataModel = new DataModel();
     }
     getJSON = function(url, callback) {
         var xhr = new XMLHttpRequest();
@@ -18,18 +18,26 @@ class DataService
         };
         xhr.send();
     };
-    getMFDataMap = function(data)
+    setMFData = function(data)
     {
+      this.dataModel.setMFData(data);
+      //prepare map [date] = nav
+      var MFData = data.data;
       var tempMFMap = {};
-      for(var entrySet of data)
+      for(var entrySet of MFData)
       {
         tempMFMap[entrySet["date"]] = entrySet["nav"];
       }
-      if(data.length>0)
+      if(MFData.length>0)
       {
-        tempMFMap["endDate"] = data[0]["date"];
-        tempMFMap["startDate"] = data[data.length-1]["date"];
+        tempMFMap["endDate"] = MFData[0]["date"];
+        tempMFMap["startDate"] = MFData[MFData.length-1]["date"];
       }
-      return tempMFMap;
+      this.dataModel.setMFDataMap(tempMFMap);
+    }
+    getMFDataMap = function(data)
+    {
+      
+      return this.dataModel.getMFDataMap();
     }
 }

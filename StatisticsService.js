@@ -7,6 +7,7 @@ class StatisticsService
     getCalculatedReturnsStr = function(MFData,  period , mfId ,dateStart ,dateEnd , years)
     {
         var currDate = new Date(dateEnd);
+        this.MFData = MFData;
 
         var str = "";//"<table>";
         str+= "<thead><tr><th>Month</th><th>Returns</th><th>start Nav</th><th>End Nav</th><th>Start Date</th><th>End Date</th></tr></thead>"
@@ -73,11 +74,11 @@ class StatisticsService
     }
     getNAVForDate = function(date)
     {
-        if(MFData[date.toString("dd-MM-yyyy")])
-            return MFData[date.toString("dd-MM-yyyy")];
+        if(this.MFData[date.toString("dd-MM-yyyy")])
+            return this.MFData[date.toString("dd-MM-yyyy")];
 
-        var MFEndDate = new Date(MFData["endDate"]);
-        var MFStartDate = new Date(MFData["startDate"]);
+        var MFEndDate = new Date(this.MFData["endDate"]);
+        var MFStartDate = new Date(this.MFData["startDate"]);
         //date<MFStartdate
         if(formatter.compareDates(date,MFStartDate)==1)
             return 0;
@@ -87,8 +88,8 @@ class StatisticsService
         for(var i=0;i<120;i++)
         {
             date.addDays(1);
-            if(MFData[date.toString("dd-MM-yyyy")])
-                return MFData[date.toString("dd-MM-yyyy")];
+            if(this.MFData[date.toString("dd-MM-yyyy")])
+                return this.MFData[date.toString("dd-MM-yyyy")];
         }
         return 0;//this.getNAVForDate(MFData["startDate"]);
     }
