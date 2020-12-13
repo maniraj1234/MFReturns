@@ -11,16 +11,18 @@ class AppService
     }
     getMFDataMap = function(data)
     {
-      return  this.dataService.getMFDataMap(data);
+        return  this.dataService.getMFDataMap(data);
     }
     getReturns = function(startVal, endVal, years)
     {
-      var TR = (endVal - startVal)/startVal;
-      var lhs = 1+TR;
-      var rhs = 1/years;
-      return Math.round(10000*(Math.pow(lhs, rhs)-1))/100;
+        if(startVal==0||years<=0)
+            return 0;
+        var TR = (endVal - startVal)/startVal;
+        var lhs = 1+TR;
+        var rhs = 1/years;
+        return Math.round(10000*(Math.pow(lhs, rhs)-1))/100;
     }
-    getCalculatedReturnsStr(MFData,  period , mfId ,dateStart ,dateEnd )
+    getCalculatedReturnsStr(MFData,  period , mfId ,dateStart ,dateEnd , years)
     {
         var currDate = new Date(dateEnd);
 
@@ -32,27 +34,20 @@ class AppService
         while(formatter.compareDates(dateStart, currDate)!=-1)
         {
             var currStartNavDate = new Date(currDate);
-            currStartNavDate = currStartNavDate.addYears(-1);
+            currStartNavDate = currStartNavDate.addYears(years);
             var currEndNavDate = new Date(currDate);
-            var rowDetails = this.getRowDetails(currStartNavDate, currEndNavDate);
+            var rowDetails = this.getRowDetails(currStartNavDate, currEndNavDate, years);
             
 
             str+= "<tr>";
             str+= rowDetails;
             str+= "</tr>";
-            currDate = currDate.addMonths(-1) ; //formatter.addMonths(currDate, -1, dayInDateEnd);
+            currDate = currDate.addMonths(-1) ; 
         }
-        // for(var row = 0;row<5;row++)
-        // {
-        //     str+= "<tr>";
-        //     for(var col=0;col<2;col++)
-        //         str+= ("<td>col" + col + "</td>");
-        //     str+= "</tr>";
-        // }
         str+= "</tbody>";
         return str;
     }
-    getRowDetails = function(startNavDate, endNavDate)
+    getRowDetails = function(startNavDate, endNavDate, years)
     {
         var strRow = "";
         //Month
@@ -62,7 +57,7 @@ class AppService
 
          //Returns
          strRow+= "<td>";
-         strRow+= this.getReturnsForPeriod(startNavDate, endNavDate,1);
+         strRow+= this.getReturnsForPeriod(startNavDate, endNavDate, years);
          strRow+= "</td>";
 
          //Month
@@ -77,17 +72,11 @@ class AppService
     }
     getReturnsForPeriod = function(startNavDate, endNavDate,years)
     {
-        var MFEndDate = new Date(MFData["endDate"]);
-        var MFStartDate = new Date(MFData["startDate"]);
-        if(formatter.compareDates(startNavDate,MFStartDate)==1)
-            startNavDate = MFStartDate;
-        if(formatter.compareDates(endNavDate,MFEndDate)==-1)
-            endNavDate = MFEndDate;
         var startNav = this.getNAVForDate(startNavDate);
         var endNav = this.getNAVForDate(endNavDate);
         startNav = Math.round(startNav * 100) / 100;
         endNav = Math.round(endNav*100)/100;
-        var str = this.getReturns(startNav ,endNav ,1);
+        var str = this.getReturns(startNav ,endNav , years);
         str+= ("%" + "</td><td>"+startNav + "</td><td>"+endNav);
         return str;        
     }
@@ -95,13 +84,22 @@ class AppService
     {
         if(MFData[date.toString("dd-MM-yyyy")])
             return MFData[date.toString("dd-MM-yyyy")];
-        for(var i=0;i<10;i++)
+
+        var MFEndDate = new Date(MFData["endDate"]);
+        var MFStartDate = new Date(MFData["startDate"]);
+        //date<MFStartdate
+        if(formatter.compareDates(date,MFStartDate)==1)
+            return 0;
+        //date>MFEnddate(last day in data)
+        if(formatter.compareDates(date,MFEndDate)==-1)
+           return 0;
+        for(var i=0;i<120;i++)
         {
-            date.addDays(-1);
+            date.addDays(1);
             if(MFData[date.toString("dd-MM-yyyy")])
                 return MFData[date.toString("dd-MM-yyyy")];
         }
-        return 1;
+        return 0;//this.getNAVForDate(MFData["startDate"]);
     }
   
 }

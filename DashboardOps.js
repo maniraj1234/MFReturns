@@ -13,6 +13,7 @@
     mfId = document.getElementById('folioID').value;
     dateStart = new Date(document.getElementById('startDate').value);
     dateEnd = new Date(document.getElementById('endDate').value);
+    years = document.getElementById('period').value;
     appService.getJSON('https://api.mfapi.in/mf/'+mfId, onMFDataLoaded);
   }
   onMFDataLoaded = function(err, data) {
@@ -33,7 +34,7 @@
   populateReturns = function()
   {
     //MFData,  period , mfId ,dateStart ,dateEnd 
-    var strReturns = appService.getCalculatedReturnsStr(MFData,  period , mfId ,dateStart ,dateEnd );
+    var strReturns = appService.getCalculatedReturnsStr(MFData,  period , mfId ,dateStart ,dateEnd , years);
     document.getElementById('resultstable').innerHTML = strReturns;
 
   }
@@ -55,12 +56,6 @@
     var dateEnd = new Date(document.getElementById('endDate').value);
     if(!formatter.isValidDate(dateEnd))
         errMessage = errMessage + "\n end date is Invalid";
-
-    if(formatter.compareDates(startDate,new Date().today()) == -1)
-        errMessage = errMessage + "\n Start date can't be in future";
-        
-    if(formatter.compareDates(endDate,new Date().today()) == -1)
-    errMessage = errMessage + "\n End date can't be in future";
 
     if(formatter.compareDates(dateStart,dateEnd)<=0)
         errMessage+= "start date should be less than end date";

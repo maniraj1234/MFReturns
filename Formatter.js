@@ -22,50 +22,5 @@ class Formatter
             return 1;
         return -1;
 
-    }
-    // addMonths = function(currDate, months , dayInDateEnd)
-    // {
-    //     var tmpDate = new Date(currDate);
-    //     var newMonth = tmpDate.getMonth()+months;
-    //     tmpDate.setMonth(newMonth);
-    //     var newDate = this.getMaxPossibleDayForMonth(tmpDate.getYear(), tmpDate.getMonth(), dayInDateEnd);
-    //     tmpDate.setDate(newDate);
-    //     return tmpDate;
-    // }
-    // getMaxPossibleDayForMonth = function(year, month, date)
-    // {
-    //     month++;//for indexing from 1
-    //     var maxInMonth = 31;
-    //     switch(month)
-    //     {
-    //         case 1:
-    //         case 3:
-    //         case 5:
-    //         case 7:
-    //         case 10:
-    //         case 12:
-    //             maxInMonth = 31;
-    //             break;
-    //         case 2:
-    //             maxInMonth = 28;
-    //             if(isLeapYear(year))
-    //                 maxInMonth = 29;
-    //             break;
-    //         default:
-    //             maxInMonth = 30;
-    //     }
-    //     return maxInMonth<date?maxInMonth:date;
-    // }
-    // isLeapYear = function(year)
-    // {
-    //     if((year%4)!=0)
-    //         return false;
-    //     if(year%400==0)
-    //         return true;
-    //     if(year%100==0)
-    //         return false;
-    //     return true;
-    // }
-
-    
+    }   
 }
